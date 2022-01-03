@@ -325,17 +325,17 @@ class LastLevelP6P7(nn.Module):
   C5 feature.
   """
 
-    def __init__(self, in_channels, out_channels, norm=''):
-        super().__init__()
-        self.num_levels = 2
-        self.p6 = ResampleFeature(in_channels, out_channels, 1, norm=norm)
-        self.p7 = MaxPool2d(kernel_size=3, stride=2, padding_mode="static_same")
-        # ResampleFeature(out_channels, out_channels, 1, norm=norm)
+  def __init__(self, in_channels, out_channels, norm=''):
+      super().__init__()
+      self.num_levels = 2
+      self.p6 = ResampleFeature(in_channels, out_channels, 1, norm=norm)
+      self.p7 = MaxPool2d(kernel_size=3, stride=2, padding_mode="static_same")
+      # ResampleFeature(out_channels, out_channels, 1, norm=norm)
 
-    def forward(self, p5):
-        p6 = self.p6(p5)
-        p7 = self.p7(p6)
-        return [p6, p7]
+  def forward(self, p5):
+      p6 = self.p6(p5)
+      p7 = self.p7(p6)
+      return [p6, p7]
 
 @BACKBONE_REGISTRY.register()
 def build_efficientnet_bifpn_backbone(cfg, input_shape: ShapeSpec):
